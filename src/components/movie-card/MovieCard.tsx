@@ -1,8 +1,21 @@
 import { Link } from 'react-router-dom';
 import { Movie } from '../../interfaces/movie.interface';
 import './MovieCard.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavouriteMovie } from '../../state/movies/moviesSlice';
+import { RootState } from '../../state/state';
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
+    const dispatch = useDispatch();
+    const favouriteMoviesList = useSelector((state: RootState) => state.movies.favouriteMoviesList);
+    const handleAddToFavourite = (event: React.MouseEvent) => {
+        event.preventDefault();
+        if (favouriteMoviesList.find((favouriteMovie) => favouriteMovie.id === movie.id)) {
+            return;
+        }
+        dispatch(addFavouriteMovie(movie));
+    };
+    const isFavourite = favouriteMoviesList.some((favouriteMovie) => favouriteMovie.id === movie.id);
     return (
         <Link to={`/movie/${movie.title}`} className="movie-card-link">
             <div className="movie-card">
@@ -15,6 +28,11 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
                     <h3 className="movie-title">{movie.title}</h3>
                     <p className="movie-overview">{movie.overview}</p>
                 </div>
+                {!isFavourite && (
+                    <button onClick={handleAddToFavourite} className="add-to-favourite">
+                        Add to favourite
+                    </button>
+                )}
             </div>
         </Link>
     );

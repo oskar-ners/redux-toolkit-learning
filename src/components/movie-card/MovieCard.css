@@ -45,6 +45,20 @@
     text-overflow: ellipsis;
 }
 
+.add-to-favourite {
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    border-style: none;
+    margin: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.add-to-favourite:hover {
+    font-weight: bold;
+}
+
 @media (max-width: 768px) {
     .movie-title {
         font-size: 1.1rem;

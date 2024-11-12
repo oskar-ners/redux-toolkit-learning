@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Movie } from '../../interfaces/movie.interface';
 
 const API_URL = 'https://api.themoviedb.org/3/movie';
@@ -8,19 +8,25 @@ const API_KEY =
 interface moviesState {
     title: string;
     movies: Movie[];
+    favouriteMoviesList: Movie[];
 }
 
 const initialState: moviesState = {
     title: 'Now Playing Movies',
     movies: [],
+    favouriteMoviesList: JSON.parse(localStorage.getItem('favouriteMovies') || '[]'),
 };
 
 export const moviesSlice = createSlice({
     name: 'movies',
     initialState,
     reducers: {
-        setMovies: (state, action) => {
-            state.movies = action.payload;
+        setFavouriteMovies: (state) => {
+            state.movies = state.favouriteMoviesList;
+        },
+        addFavouriteMovie: (state, action: PayloadAction<Movie>) => {
+            state.favouriteMoviesList.push(action.payload);
+            localStorage.setItem('favouriteMovies', JSON.stringify(state.favouriteMoviesList));
         },
     },
     extraReducers: (builder) => {
@@ -53,6 +59,6 @@ export const fetchMovies = createAsyncThunk<Movie[], string>('movies/setMovies',
     }
 });
 
-export const { setMovies } = moviesSlice.actions;
+export const { setFavouriteMovies, addFavouriteMovie } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

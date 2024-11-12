@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { fetchMovies } from '../../state/movies/moviesSlice';
+import { fetchMovies, setFavouriteMovies } from '../../state/movies/moviesSlice';
 import { AppDispatch } from '../../state/state';
 
 const FilterMovies = () => {
@@ -10,6 +10,7 @@ const FilterMovies = () => {
             <button onClick={() => dispatch(fetchMovies('popular'))}>Popular</button>
             <button onClick={() => dispatch(fetchMovies('top_rated'))}>Top Rated</button>
             <button onClick={() => dispatch(fetchMovies('upcoming'))}>Upcoming</button>
+            <button onClick={() => dispatch(setFavouriteMovies())}>Your Favourite Movies</button>
         </div>
     );
 };
