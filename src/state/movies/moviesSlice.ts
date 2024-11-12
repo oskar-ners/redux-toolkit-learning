@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Movie } from '../../interfaces/movies.interface';
+import { Movie } from '../../interfaces/movie.interface';
 
 const API_URL = 'https://api.themoviedb.org/3/movie';
 const API_KEY =
     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMjYxNGM5MTUxMTZkNGQ5ZGQ2NzAzMDYwMTcxMzY0NiIsIm5iZiI6MTczMDcxODUxOC40Mzg4MzA5LCJzdWIiOiI2NzI4YWE3ZDU5MTgxMzdjZmMzOWJhYmIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.NLlME08IOCzAjdIZk9rrE65Z9tcKQ_P98joKip0F9MM';
 
 interface moviesState {
-    listname: string;
+    title: string;
     movies: Movie[];
 }
 
 const initialState: moviesState = {
-    listname: 'Now Playing Movies',
+    title: 'Now Playing Movies',
     movies: [],
 };
 
@@ -25,7 +25,7 @@ export const moviesSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchMovies.fulfilled, (state, action) => {
-            state.listname = action.meta.arg;
+            state.title = action.meta.arg;
             state.movies = action.payload;
         });
     },

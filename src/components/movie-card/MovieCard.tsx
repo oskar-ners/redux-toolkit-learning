@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Movie } from '../../interfaces/movies.interface';
+import { Movie } from '../../interfaces/movie.interface';
 import './MovieCard.css';
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
