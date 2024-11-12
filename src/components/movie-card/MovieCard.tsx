@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Movie } from '../../interfaces/movie.interface';
 import './MovieCard.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavouriteMovie } from '../../state/movies/moviesSlice';
+import { addFavouriteMovie, removeFavouriteMovie } from '../../state/movies/moviesSlice';
 import { RootState } from '../../state/state';
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
@@ -14,6 +14,10 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
             return;
         }
         dispatch(addFavouriteMovie(movie));
+    };
+    const handleRemoveFromFavourite = (event: React.MouseEvent) => {
+        event.preventDefault();
+        dispatch(removeFavouriteMovie(movie));
     };
     const isFavourite = favouriteMoviesList.some((favouriteMovie) => favouriteMovie.id === movie.id);
     return (
@@ -31,6 +35,11 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
                 {!isFavourite && (
                     <button onClick={handleAddToFavourite} className="add-to-favourite">
                         Add to favourite
+                    </button>
+                )}
+                {isFavourite && (
+                    <button onClick={handleRemoveFromFavourite} className="remove-from-favourite">
+                        Remove from favourite
                     </button>
                 )}
             </div>

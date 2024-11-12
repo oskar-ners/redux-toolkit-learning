@@ -28,6 +28,10 @@ export const moviesSlice = createSlice({
             state.favouriteMoviesList.push(action.payload);
             localStorage.setItem('favouriteMovies', JSON.stringify(state.favouriteMoviesList));
         },
+        removeFavouriteMovie: (state, action: PayloadAction<Movie>) => {
+            state.favouriteMoviesList = state.favouriteMoviesList.filter((movie) => movie.id !== action.payload.id);
+            localStorage.setItem('favouriteMovies', JSON.stringify(state.favouriteMoviesList));
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchMovies.fulfilled, (state, action) => {
@@ -59,6 +63,6 @@ export const fetchMovies = createAsyncThunk<Movie[], string>('movies/setMovies',
     }
 });
 
-export const { setFavouriteMovies, addFavouriteMovie } = moviesSlice.actions;
+export const { setFavouriteMovies, addFavouriteMovie, removeFavouriteMovie } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

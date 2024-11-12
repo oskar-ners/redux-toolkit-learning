@@ -45,7 +45,8 @@
     text-overflow: ellipsis;
 }
 
-.add-to-favourite {
+.add-to-favourite,
+.remove-from-favourite {
     cursor: pointer;
     background-color: #333;
     color: white;
@@ -55,8 +56,17 @@
     letter-spacing: 2px;
     text-transform: uppercase;
 }
-.add-to-favourite:hover {
+.add-to-favourite:hover,
+.remove-from-favourite:hover {
     font-weight: bold;
+}
+
+.remove-from-favourite {
+    background-color: red;
+}
+
+.add-to-favourite {
+    background-color: green;
 }
 
 @media (max-width: 768px) {
